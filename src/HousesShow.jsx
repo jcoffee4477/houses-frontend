@@ -6,6 +6,10 @@ export function HousesShow(props) {
     props.onUpdateHouse(props.house.id, params, () => event.target.reset())
   }
 
+  const handleClick = () => {
+    props.onDestroyHouse(props.house)
+  }
+
   return (
     <div>
       
@@ -24,6 +28,7 @@ export function HousesShow(props) {
           </div>
           <button type="submit">Update house</button>
         </form>
+        <button onClick={handleClick}>Destroy House</button>
     </div>
   );
 }

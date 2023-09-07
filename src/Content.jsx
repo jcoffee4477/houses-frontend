@@ -51,7 +51,15 @@ export function Content() {
                handleClose();
              });
            };
-        
+
+           const handleDestroyHouse = (house) => {
+                 console.log("handleDestroyHouse", house);
+                 axios.delete(`http://localhost:3000/houses/${house.id}.json`).then((response) => {
+                   setHouses(houses.filter((h) => h.id !== house.id));
+                   handleClose();
+                 });
+              };
+          
 
   useEffect(handleHousesIndex, [])
 
@@ -63,7 +71,7 @@ export function Content() {
       <HousesNew onCreateHouse={handleCreateHouse} />
       <Modal show={isHousesShowVisible} onClose={handleClose}>
         <h1>Test</h1>
-        <HousesShow house={currentHouse} onUpdateHouse={handleUpdateHouse} />
+        <HousesShow house={currentHouse} onUpdateHouse={handleUpdateHouse} onDestroyHouse={handleDestroyHouse} />
       </Modal>
     </div>
   )
