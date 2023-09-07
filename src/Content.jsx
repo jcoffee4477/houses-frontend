@@ -35,6 +35,24 @@ export function Content() {
         setIsHousesShowVisible(false)
       }
 
+      const handleUpdateHouse = (id, params, successCallback) => {
+            console.log("handleUpdateHouse", params);
+           axios.patch(`http://localhost:3000/houses/${id}.json`, params).then((response) => {
+             setHouses(
+               houses.map((house) => {
+                 if (house.id === response.data.id) {
+                   return response.data;
+                   } else {
+                     return house;
+                   }
+                 })
+               );
+               successCallback();
+               handleClose();
+             });
+           };
+        
+
   useEffect(handleHousesIndex, [])
 
 
@@ -45,7 +63,7 @@ export function Content() {
       <HousesNew onCreateHouse={handleCreateHouse} />
       <Modal show={isHousesShowVisible} onClose={handleClose}>
         <h1>Test</h1>
-        <HousesShow house={currentHouse} />
+        <HousesShow house={currentHouse} onUpdateHouse={handleUpdateHouse} />
       </Modal>
     </div>
   )

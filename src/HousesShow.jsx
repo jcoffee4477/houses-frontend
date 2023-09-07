@@ -1,11 +1,29 @@
 export function HousesShow(props) {
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const params = new FormData(event.target);
+    props.onUpdateHouse(props.house.id, params, () => event.target.reset())
+  }
+
   return (
     <div>
-      <h1>House information</h1>
-      <p>squarefeet: {props.house.squarefeet}</p>
-      <p>bedrooms: {props.house.bedrooms}</p>
-      <p>bathrooms: {props.house.bathrooms}</p>
-      <p>address: {props.house.address}</p>
+      
+      <form onSubmit={handleSubmit}>
+          <div>
+            squarefeet: <input defaultValue={props.house.squarefeet} name="squarefeet" type="text" />
+          </div>
+          <div>
+            bedrooms: <input defaultValue={props.house.bedrooms} name="bedrooms" type="text" />
+          </div>
+          <div>
+            bathrooms: <input defaultValue={props.house.bedrooms} name="bathrooms" type="text" />
+          </div>
+          <div>
+            adress: <input defaultValue={props.house.adress} name="adress" type="text" />
+          </div>
+          <button type="submit">Update house</button>
+        </form>
     </div>
   );
 }
